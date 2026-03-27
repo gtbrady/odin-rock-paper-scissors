@@ -1,0 +1,33 @@
+Planning/Psuedocode
+https://www.theodinproject.com/lessons/foundations-rock-paper-scissors
+
+REQUIREMENTS
+- Rock paper scissors
+- Played from the console
+- Played against computer
+- Best of 5
+
+
+PSUEDOCODE
+
+
+Start game
+
+Randomize computer choice for the round
+    FUNC: getComputerChoice()
+    - Math.Random()
+    - Random number from 1 to 3
+    - 1 = Rock, 2 = Paper, 3 = Scissors
+Prompt for input
+    FUNC: choicePrompt()
+        Prompts:
+        "Select a number from 1 to 3:"
+            "1: Rock"
+            "2: Paper"
+            "3: Scissors"
+Get the user choice
+    prompt() to receive input
+    Validate user input
+        FUNC: validateChoice()
+                IF: user inputs valid choice (number 1 to 3), TRUE - continue with game
+                ELSE: user inputs invalid choice, FALSE - Reprompt for choice
