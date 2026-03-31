@@ -41,17 +41,13 @@ startGame();
 function startRound() {
     console.log("Round:" + round);
     showScore();
-    promptUser();
+    getHumanChoice();
+    getComputerChoice();
 }
 
 function showScore() {
     console.log("Player | Computer");
     console.log("   " + playerScore + "   -    " + computerScore);
-}
-
-function promptUser() {
-    let promptText = "Select a number from 1 to 3:\n1 for Rock\n2 for Paper\n3 for Scissors"
-    prompt(promptText);
 }
 
 /*
@@ -62,7 +58,28 @@ Prompt for input
             "1: Rock"
             "2: Paper"
             "3: Scissors"
+*/
 
+function promptUser() {
+    let promptText = "Select a number from 1 to 3:\n1 for Rock\n2 for Paper\n3 for Scissors"
+    return prompt(promptText);
+}
+
+function getHumanChoice() {
+    let humanChoice = promptUser();
+    //TODO: remove this log, for debugging
+    console.log("User selected " + humanChoice);
+    
+}
+
+function getComputerChoice() {
+    //TODO: remove this log, for debugging
+    let computerChoice = Math.floor(Math.random() * 3) + 1;
+    console.log("Computer selected " + computerChoice);
+}
+
+
+/*
 Get the user choice
     prompt() to receive input
     Validate user input
