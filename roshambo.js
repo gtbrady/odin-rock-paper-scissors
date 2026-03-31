@@ -14,12 +14,8 @@ function startGame() {
     playerScore = 0;
     computerScore = 0;
     round = 1;
-    startGameMessage();
-
-    //TODO: remove these, just for debugging purposes.
-    console.log("Player score: " + playerScore)
-    console.log("Computer score: " + computerScore)
-    console.log("Round: " + round)
+    startGameMessage();     
+    startRound();
 }
 /*
 Print message stating game is beginning
@@ -34,11 +30,6 @@ function startGameMessage() {
     console.log("STARTING GAME");
 }
 
-
-
-
-
-
 //initialize game:
 startGame();
 
@@ -48,17 +39,22 @@ startGame();
     PRINT: "Round: <round>. The score is: "Human": userScore() - Computer: computerScore()"
 */
 function startRound() {
-
+    console.log("Round:" + round);
+    showScore();
+    promptUser();
 }
 
 function showScore() {
-    "Round:" + round;
-    "The score is " + playerScore + " - " + computerScore;
+    console.log("Player | Computer");
+    console.log("   " + playerScore + "   -    " + computerScore);
+}
+
+function promptUser() {
+    let promptText = "Select a number from 1 to 3:\n1 for Rock\n2 for Paper\n3 for Scissors"
+    prompt(promptText);
 }
 
 /*
-
-
 Prompt for input
     FUNC: choicePrompt()
         Prompts:
@@ -99,7 +95,4 @@ Evaluate round evaluateResults()
                 ELSE 
                     increment round#
                     start new round startRound()
-        
-
-
 */
