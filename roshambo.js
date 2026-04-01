@@ -20,6 +20,7 @@ function startGame() {
     playRound(getHumanChoice(), getComputerChoice());
     playRound(getHumanChoice(), getComputerChoice());
     playRound(getHumanChoice(), getComputerChoice());
+    exitGame();
 }
 /*
 Print message stating game is beginning
@@ -29,7 +30,7 @@ function startGameMessage() {
     console.log("Welcome!");
     console.log("You will be playing Rock Paper Scissors with the computer.");
     console.log("You will play from the command line. Type 1 for Rock, 2 for Paper, and 3 for Scissors.");
-    console.log("It's a best of 5, and the game starts now! Good luck!");
+    console.log("You will play 5 rounds in total, and the game starts now! Good luck!");
     console.log("~~~~~~~~~~~");
     console.log("STARTING GAME");
 }
@@ -37,22 +38,19 @@ function startGameMessage() {
 //initialize game:
 startGame();
 
-
 /*Start round playRound()
     Print message stating round and current score, then prompt user for their choice
     PRINT: "Round: <round>. The score is: "Human": userScore() - Computer: computerScore()"
 */
 function startRound() {
-    console.log("Round:" + round);
-    showScore();
+    console.log("Round: " + round);
 }
 
+//display score
 function showScore() {
     console.log("Player | Computer");
     console.log("   " + playerScore + "   -    " + computerScore);
 }
-
-
 
 /*
 Prompt for input
@@ -101,8 +99,34 @@ function convertChoice(integer) {
     }
 }
 
+function printSelection(humanSelection, computerSelection) {
+    console.log("You chose " + humanSelection + ", the computer chose " + computerSelection + "...")
+}
+
+/*
+playRound()
+    Check if tie.
+        Increment Round
+    If not tie
+        check player win conditions, then check computer win conditions to print out correct result
+        update score for winner
+        increment round
+    Limiting scope to 5 rounds
+
+Game Logic
+Choices are the same = tie; no change to score
+Player chooses rock, computer chooses scissors = Player wins, increment score
+Player chooses rock, computer chooses paper = Player loses, increment computer score
+Player chooses scissors, computer chooses paper = Player wins, increment player score
+Player chooses scissors, computer chooses rock = player loses, increment computer
+Player chooses paper, computer chooses rock = player wins, increment player
+Player chooses paper, computer chooses scissors, player loses, increment computer
+
+*/
+
 function playRound(humanSelection, computerSelection) {
     startRound();
+    printSelection(humanSelection,computerSelection);
 
     //tie condition
     if(humanSelection === computerSelection) {
@@ -137,38 +161,21 @@ function playRound(humanSelection, computerSelection) {
         computerScore++;
     }
     round++;
+    showScore();
 }
 
+function evaluateWinner() {
+    if(playerScore > computerScore) {
+        console.log("You win! Congratulations!");
+    } else if(computerScore > playerScore){
+        console.log("The computer wins... Better luck next time.")
+    } else {
+        console.log("The game ended in a tie!")
+    }
+}
 
-/*
-
-
-Evaluate round evaluateResults()
-    Check if tie.
-        Increment Round #
-        Start new round playRound()
-    If not tie
-        update score for winner
-            check if score goal reached
-                if score for winner > 3
-                    gameOver()
-                        print results
-                        prompt if user wants to play again 
-                            playAgain() - print "Do you want to play again? Type Y for yes, N to exit."
-                            Y = startGame()
-                            N = exitGame() - print message stating "Thanks for playing!"
-                            anything else - reprompt playAgain
-                ELSE 
-                    increment round#
-                    start new round playRound()
-
-
-Game Logic
-Choices are the same = tie; no change to score
-Player chooses rock, computer chooses scissors = Player wins, increment score
-Player chooses rock, computer chooses paper = Player loses, increment computer score
-Player chooses scissors, computer chooses paper = Player wins, increment player score
-Player chooses scissors, computer chooses rock = player loses, increment computer
-Player chooses paper, computer chooses rock = player wins, increment player
-Player chooses paper, computer chooses scissors, player loses, increment computer
-*/
+function exitGame() {
+    console.log("Final Result:");
+    showScore();
+    evaluateWinner();
+}
