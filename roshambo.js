@@ -15,6 +15,14 @@ function startGame() {
     computerScore = 0;
     round = 1;
     startGameMessage(); 
+    /*UI UPDATE:
+    5 rounds
+    - need to update logic from hard coding 5 rounds
+    - need to check for score condition - game ends when player or computer score
+    reaches 5.
+    - Then game is over, player can start a new game or exit
+    
+    */
     playRound(getHumanChoice(), getComputerChoice());
     playRound(getHumanChoice(), getComputerChoice());
     playRound(getHumanChoice(), getComputerChoice());
@@ -27,6 +35,7 @@ Print message stating game is beginning
     startGameMessage()
 */
 function startGameMessage() {
+    //UI UPDATE add div so this displays in browser vs console
     console.log("Welcome!");
     console.log("You will be playing Rock Paper Scissors with the computer.");
     console.log("You will play from the command line. Type 1 for Rock, 2 for Paper, and 3 for Scissors.");
@@ -43,11 +52,13 @@ startGame();
     PRINT: "Round: <round>. The score is: "Human": userScore() - Computer: computerScore()"
 */
 function startRound() {
+    //UI UPDATE add div so this displays in browser vs console
     console.log("Round: " + round);
 }
 
 //display score
 function showScore() {
+    //UI UPDATE add div so this displays in browser vs console
     console.log("Player | Computer");
     console.log("   " + playerScore + "   -    " + computerScore);
 }
@@ -63,6 +74,10 @@ Prompt for input
 */
 
 function promptUser() {
+    /*UI UPDATE add div so this displays in browser vs console
+    Need to change input method from prompt() to button click/event listener
+
+    */
     let promptText = "Select a number from 1 to 3:\n1 for Rock\n2 for Paper\n3 for Scissors"
     return prompt(promptText);
 }
@@ -100,6 +115,7 @@ function convertChoice(integer) {
 }
 
 function printSelection(humanSelection, computerSelection) {
+    //UI UPDATE add div so this displays in browser vs console
     console.log("You chose " + humanSelection + ", the computer chose " + computerSelection + "...")
 }
 
@@ -164,6 +180,12 @@ function playRound(humanSelection, computerSelection) {
     showScore();
 }
 
+/*UI UPDATE:
+Need to rework this probably into 2 separate functions
+need to check scores at end of round to see if victory condition met
+if it has, then evaluate winner
+
+*/
 function evaluateWinner() {
     if(playerScore > computerScore) {
         console.log("You win! Congratulations!");
