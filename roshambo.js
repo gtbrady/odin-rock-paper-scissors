@@ -23,11 +23,11 @@ function startGame() {
     - Then game is over, player can start a new game or exit
     
     */
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
+    while(playerScore < 5 && computerScore < 5) {
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+
+
     exitGame();
 }
 /*
