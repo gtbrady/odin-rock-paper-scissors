@@ -2,59 +2,33 @@ let playerScore;
 let computerScore;
 let round;
 
-/* 
-Start Game
-Initialize scores for computer and human player
-    FUNC: startGame()
-        initalize playerScore and computerScore (both global variables) to 0
-        initalize round to 1
-        call startGameMessage()
-*/
+const rockButton = document.querySelector("#rockButton");
+rockButton.addEventListener("click",buttonClick);
+const paperButton = document.querySelector("#paperButton");
+paperButton.addEventListener("click",buttonClick);
+const scissorsButton = document.querySelector("#scissorsButton");
+scissorsButton.addEventListener("click",buttonClick);
+
+
+
 function startGame() {
     playerScore = 0;
     computerScore = 0;
     round = 1;
-    startGameMessage(); 
-    /*UI UPDATE:
-    5 rounds
-    - need to update logic from hard coding 5 rounds
-    - need to check for score condition - game ends when player or computer score
-    reaches 5.
-    - Then game is over, player can start a new game or exit
-    
-    */
+    playGame();
+    exitGame();
+}
+
+function playGame() {
     while(playerScore < 5 && computerScore < 5) {
         playRound(getHumanChoice(), getComputerChoice());
     }
 
-
-    exitGame();
-}
-/*
-Print message stating game is beginning
-    startGameMessage()
-*/
-function startGameMessage() {
-    //UI UPDATE add div so this displays in browser vs console
-    console.log("Welcome!");
-    console.log("You will be playing Rock Paper Scissors with the computer.");
-    console.log("You will play from the command line. Type 1 for Rock, 2 for Paper, and 3 for Scissors.");
-    console.log("You will play 5 rounds in total, and the game starts now! Good luck!");
-    console.log("~~~~~~~~~~~");
-    console.log("STARTING GAME");
 }
 
 //initialize game:
-startGame();
+// startGame();
 
-/*Start round playRound()
-    Print message stating round and current score, then prompt user for their choice
-    PRINT: "Round: <round>. The score is: "Human": userScore() - Computer: computerScore()"
-*/
-function startRound() {
-    //UI UPDATE add div so this displays in browser vs console
-    console.log("Round: " + round);
-}
 
 //display score
 function showScore() {
@@ -63,15 +37,6 @@ function showScore() {
     console.log("   " + playerScore + "   -    " + computerScore);
 }
 
-/*
-Prompt for input
-    FUNC: choicePrompt()
-        Prompts:
-        "Select a number from 1 to 3:"
-            "1: Rock"
-            "2: Paper"
-            "3: Scissors"
-*/
 
 function promptUser() {
     /*UI UPDATE add div so this displays in browser vs console
@@ -82,20 +47,16 @@ function promptUser() {
     return prompt(promptText);
 }
 
+function buttonClick(event) {
+    playRound(event.target.innerText,getComputerChoice());
+}
+
 //Assignment assumes a correct choice will be entered; no input validation yet.
 function getHumanChoice() {
     let humanChoice = parseInt(promptUser());
     return convertChoice(humanChoice);
 }
 
-
-/*
-Randomize computer choice for each round
-    FUNC: getComputerChoice()
-    - Math.Random()
-    - Random number from 1 to 3
-    - 1 = Rock, 2 = Paper, 3 = Scissors
-*/
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3) + 1;
     return convertChoice(computerChoice);
@@ -114,35 +75,9 @@ function convertChoice(integer) {
     }
 }
 
-function printSelection(humanSelection, computerSelection) {
-    //UI UPDATE add div so this displays in browser vs console
-    console.log("You chose " + humanSelection + ", the computer chose " + computerSelection + "...")
-}
 
-/*
-playRound()
-    Check if tie.
-        Increment Round
-    If not tie
-        check player win conditions, then check computer win conditions to print out correct result
-        update score for winner
-        increment round
-    Limiting scope to 5 rounds
-
-Game Logic
-Choices are the same = tie; no change to score
-Player chooses rock, computer chooses scissors = Player wins, increment score
-Player chooses rock, computer chooses paper = Player loses, increment computer score
-Player chooses scissors, computer chooses paper = Player wins, increment player score
-Player chooses scissors, computer chooses rock = player loses, increment computer
-Player chooses paper, computer chooses rock = player wins, increment player
-Player chooses paper, computer chooses scissors, player loses, increment computer
-
-*/
 
 function playRound(humanSelection, computerSelection) {
-    startRound();
-    printSelection(humanSelection,computerSelection);
 
     //tie condition
     if(humanSelection === computerSelection) {
