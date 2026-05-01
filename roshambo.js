@@ -1,6 +1,6 @@
-let playerScore;
-let computerScore;
-let round;
+let playerScore = 0;
+let computerScore = 0;
+let round = 1;
 
 const rockButton = document.querySelector("#rockButton");
 rockButton.addEventListener("click",buttonClick);
@@ -8,8 +8,18 @@ const paperButton = document.querySelector("#paperButton");
 paperButton.addEventListener("click",buttonClick);
 const scissorsButton = document.querySelector("#scissorsButton");
 scissorsButton.addEventListener("click",buttonClick);
+const scoreboardHeader = document.querySelector("#scoreboardHeader");
+scoreboardHeader.innerText = `Round: ${round}\nPlayer | Computer`;
+const scoreboard = document.querySelector("#scoreboard");
+scoreboard.innerText = `${playerScore} - ${computerScore}`;
 
 
+
+function updateScoreboard() {
+    scoreboardHeader.innerText = `Round: ${round}\nPlayer | Computer`;
+    scoreboard.innerText = `${playerScore} - ${computerScore}`;
+    
+}
 
 function startGame() {
     playerScore = 0;
@@ -112,6 +122,7 @@ function playRound(humanSelection, computerSelection) {
         computerScore++;
     }
     round++;
+    updateScoreboard();
     showScore();
 }
 
