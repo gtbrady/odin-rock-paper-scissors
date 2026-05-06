@@ -4,28 +4,25 @@ let round = 1;
 
 const rockButton = document.querySelector("#rockButton");
 rockButton.addEventListener("click",buttonClick);
+
 const paperButton = document.querySelector("#paperButton");
 paperButton.addEventListener("click",buttonClick);
+
 const scissorsButton = document.querySelector("#scissorsButton");
 scissorsButton.addEventListener("click",buttonClick);
+
 const scoreboardHeader = document.querySelector("#scoreboardHeader");
 scoreboardHeader.innerText = `Round: ${round}\nPlayer | Computer`;
+
 const scoreboard = document.querySelector("#scoreboard");
 scoreboard.innerText = `${playerScore} - ${computerScore}`;
+
 const results = document.querySelector("#results");
 
+const startGameButton = document.querySelector("#startGame");
+startGameButton.addEventListener("click",startGame);
 
-/*
-TODO
-Add Play Game button
-- disable 3 main buttons to start
-- play game enables buttons and starts the game (resets rounds/score)
-- play game button is disabled
-- once score target is reached, game over. Disable buttons again. Re-enable play game button
-
-*/
-
-
+toggleButtons(true);
 
 function updateScoreboard() {
     scoreboardHeader.innerText = `Round: ${round}\nPlayer | Computer`;
@@ -37,18 +34,20 @@ function startGame() {
     playerScore = 0;
     computerScore = 0;
     round = 1;
+    updateScoreboard();
+    toggleButtons(false)
+
 }
 
-//initialize game:
-// startGame();
+function toggleButtons(boolean) {
+    paperButton.disabled = boolean;
+    scissorsButton.disabled = boolean;
+    rockButton.disabled = boolean;
+    startGameButton.disabled = !boolean;
+}
 
 function buttonClick(event) {
     playRound(event.target.innerText,getComputerChoice());
-}
-
-function getHumanChoice() {
-    let humanChoice = parseInt(promptUser());
-    return convertChoice(humanChoice);
 }
 
 function getComputerChoice() {
@@ -56,7 +55,6 @@ function getComputerChoice() {
     return convertChoice(computerChoice);
 }
 
-//helper function to convert number to string
 function convertChoice(integer) {
     if(integer === 1) {
         return "Rock";
@@ -68,8 +66,6 @@ function convertChoice(integer) {
         return "Scissors";
     }
 }
-
-
 
 function playRound(humanSelection, computerSelection) {
 
@@ -108,7 +104,6 @@ function playRound(humanSelection, computerSelection) {
     round++;
     updateScoreboard();
     evaluateWinner();
-
 }
 
 function evaluateWinner() {
@@ -121,8 +116,7 @@ function evaluateWinner() {
         results.innerText = "You Lost!"
         gameOver = true;
     }
-}
-
-function toggleButtons() {
-
+    if(gameOver) {
+        toggleButtons(true);
+    }
 }
